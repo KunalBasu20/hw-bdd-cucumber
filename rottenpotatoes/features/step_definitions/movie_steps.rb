@@ -18,7 +18,7 @@ end
 Then /I should see "(.*)" before "(.*)"/ do |e1, e2|
   #  ensure that that e1 occurs before e2.
   #  page.body is the entire content of the page as a string.
-  expect(page.body).to have_content("/\w*#{e1}\w*#{e2}/")
+  expect(page.body).to have_content(/[\s]*#{e1}[\s]*#{e2}/)
 end
 
 # Make it easier to express checking or unchecking several boxes at once
@@ -41,6 +41,6 @@ end
 
 Then /I should see all the movies/ do
   # Make sure that all the movies in the app are visible in the table
-  no_of_movies = Movie.count
-  page.should have_css("table#myTable tr", :count=>no_of_movies)
+  no_of_expected_rows = Movie.count + 1
+  page.should have_css("tr", :count=>no_of_expected_rows)
 end
